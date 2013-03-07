@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<company>
+	<Video id="1001">
+		<Title> Beethoven - Symphony No. 5</Title>
+		<Link>http://www.youtube.com/watch?v=6z4KK7RWjmk</Link>
+		<Channel>andrea romano</Channel>
+		<Views>100000</Views>
+	</Video>
+	<Video id="1001">
+		<Title>  Beethoven - Piano Sonata No. 7</Title>
+		<Link>http://www.youtube.com/watch?v=af518XYiSa4</Link>
+		<Channel>andrea romano</Channel>
+		<Views>100000</Views>
+	</Video>
+</company>

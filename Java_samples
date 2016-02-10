@@ -1,0 +1,457 @@
+FirstProgram.java
+
+package guvi.java.practice;
+
+public class FirstProgram {
+
+	    public static void main(String []args) {
+	       System.out.println("Hello GUVI");
+	    }
+}
+
+Output
+Hello GUVI
+
+Instanceof keyword - TestInstance.java
+
+package guvi.java.practice;
+
+public class TestInstance {
+	public static void main(String args[]){
+		String name = "GUVI";
+		boolean output = name instanceof String; 	// since name is type of String, true value is returned 
+		System.out.println( output );
+	}
+}
+
+Output
+True
+
+Enum Usage - EnumUsage.java
+
+package guvi.java.practice;
+
+class ExpertiseLevel {
+
+   enum ExpertiseLevelIndicator{ BEGINNER, INTERMEDIATE, EXPERT }
+   ExpertiseLevelIndicator indicator;
+}
+
+public class EnumUsage {
+
+   public static void main(String args[]){
+	   ExpertiseLevel el = new ExpertiseLevel();
+      el.indicator = ExpertiseLevel.ExpertiseLevelIndicator.EXPERT ;
+      System.out.println("Size: " + el.indicator);
+   }
+}
+Output
+Size: EXPERT
+
+Constructor/method overloading – Constructor.java
+package guvi.java.practice;
+public class Constructor {
+	
+	int mark1,mark2,mark3,mark4,sum;
+	public static String name = "guvi"; 
+	
+	public Constructor(int m1,int m2,int m3,int m4){
+		this.mark1 = m1;
+		this.mark2 = m2;
+		this.mark3 = m3;
+		this.mark4 = m4;
+	}
+
+	public Constructor(int m1,int m2,int m3){
+		this.mark1 = m1;
+		this.mark2 = m2;
+		this.mark3 = m3;
+	}
+	
+	public Constructor(Constructor cc){
+		this.mark1 = cc.mark1;
+		this.mark2 = cc.mark2;
+		this.mark3 = cc.mark3;
+	}
+	
+	public void calc(){
+//		name = " guvi ";
+		sum = mark1+mark2+mark3+mark4;
+		System.out.println("\n Sum is " + sum);
+		System.out.println("\n Name is " + name);
+	}
+	
+	public static void display(){
+//		name = "guvi";
+//		sum = mark1+mark2+mark3+mark4;
+//		System.out.println("\n Sum is " + sum);
+		System.out.println("\n Name is " + name);
+	}
+	
+	static public void main(String args[]){
+		Constructor c = new Constructor(10,5,1,20);	//2 objects for constructor and constructor overloading implemented
+		Constructor c1 = new Constructor(15,25,1);
+		Constructor c2 = new Constructor(c1);
+		c.calc();
+		c2.calc();
+		Constructor.display();
+	}
+
+}
+Output
+ Sum is 36
+ Name is GUVI
+ Sum is 41
+ Name is GUVI
+ Name is GUVI
+
+Custom exception – Custom.java
+package guvi.java.practice;
+
+class Customer extends Exception {
+
+	public Customer(String s){
+		super(s);
+	}
+}
+
+public class Custom {
+	
+	static void validate(int age) throws Customer {
+		if(age>10){
+		throw new Customer("Custom test");
+		}
+		else
+			System.out.println("\n no error");
+	}
+	
+	public static void main(String args[]){
+		try{
+		Custom.validate(20);
+		}
+		catch(Exception e){
+			System.out.println("Exception occured: "+e);
+		}
+	}
+}
+Output
+Exception occured: bhar.java.Customer: Custom test
+
+Object creation – ObjClass.java
+package guvi.java.practice;
+
+public class ObjClass {
+
+	public int sum;									//Instance variable ==> initialization not required during declaration
+	private static String test;						//Class/static ==> variable is a private static variable
+	
+	public void calc(int mark1,int mark2){
+		String subject = "Maths";				//local variable ==> has to be initialized when declared locally
+		sum = mark1+mark2;
+		System.out.println("\n Mark is" + sum + subject);
+	}
+	
+	public void calc(int mark1,int mark2, int mark3){
+		sum = mark1+mark2+mark3;
+		System.out.println("\n Sum is " + sum);
+	}
+	
+	public void calc(int mark1,int mark2, int mark3,int mark4){
+		sum = mark1+mark2+mark3+mark4;
+		System.out.println("\n Sum is " + sum);
+	}
+	
+	public static void main(String args[]){
+		
+		ObjClass obj = new ObjClass();
+		ObjClass obj1 = new ObjClass();	//two objects for same class created
+		obj.calc(10,20);
+		obj1.calc(10,20);
+		obj.calc(20,40,50);				//method overloading
+		obj1.calc(20,40,50);
+		obj.calc(100,100,100,160);
+		obj1.calc(100,100,100,160);
+	}
+}
+
+Output
+ Mark is30Maths
+ Mark is30Maths
+ Sum is 110
+ Sum is 110
+ Sum is 460
+ Sum is 460
+
+Compare age & name - AgeComparator.java,NameComparator.java,Student.java,Testcomp.java
+package guvi.collections;
+
+import java.util.Comparator;
+
+public class AgeComparator implements Comparator{
+
+	public int compare(Object o1, Object o2){
+		
+		Student s1 = (Student) o1;
+		Student s2 = (Student) o2;
+		if(s1.aage >= s2.aage){
+			
+			System.out.println("\n s1 age is great");
+			return 1;
+		}
+		else
+			System.out.println("\n s2 age is great");
+			return -1;
+		
+	}
+}
+
+NameComparator.java
+package guvi.collections;
+
+import java.util.Comparator;
+
+public class NameComparator implements Comparator {
+
+	public int compare(Object o1,Object o2){
+		Student s1 = (Student)o1;
+		Student s2 = (Student)o2;
+		
+		if((s1.naame).equals(s2.naame)){
+			System.out.println("\n name is " + s1.naame + s2.naame);
+			return 1;
+		}
+		else
+			System.out.println("\n name doesnt match" + s1.naame + s2.naame);
+			return -1;
+	}
+}
+
+Student.java
+package guvi.collections;
+
+public class Student implements Comparable {
+	
+	public int uid;
+	public String naame;
+	public int aage;
+	
+	public Student(int id,String name,int age){
+		this.uid = id;
+		this.naame = name;
+		this.aage = age;
+	}
+	
+	public int compareTo(Object o1){
+		
+		Student s1 = (Student)o1;
+		if(uid == s1.uid){
+			System.out.println("\n"+ s1.uid + " matches " + uid);
+			return 1;
+		}
+		else 
+			System.out.println("\n"+ s1.uid + " doesn't matches " + uid);
+			return -1;
+	}
+}
+
+Testcomp.java
+package guvi.collections;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Testcomp {	
+	public static void main(String args[]){		
+		List li = new ArrayList();
+		li.add(new Student(1,"guvi",24));
+		li.add(new Student(1,"guvi",26));
+//		li.add(new Student(3,"arun",30));		
+		Collections.sort(li);
+		Collections.sort(li, new AgeComparator());
+		Collections.sort(li, new NameComparator());		
+	}
+}
+Output
+1 matches 1
+s1 age is great
+guvi matches guvi
+
+To check the frequency of the number duplicated in a list - Array.java
+package guvi.collections;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Array {
+	public static void main(String args[]){		
+		List<Integer> li = new ArrayList<Integer>();
+		li.add(1);
+		li.add(1);
+		li.add(1);
+		li.add(4);
+		li.add(3);
+		
+		Iterator it = li.iterator();
+		while(it.hasNext()){
+			System.out.println("\nIntegers " + it.next());
+		}		
+		Set<Integer> s = new TreeSet<Integer>();
+		for(int i : li){
+			s.add(i);
+		}		
+		Iterator itr = s.iterator();
+		while(itr.hasNext()){
+			System.out.println("\nIntegers " + itr.next());
+			Map<Integer, Integer> me = new HashMap<Integer,Integer>();
+//			Set s1 = new HashSet(li);
+			for(int j:li){
+				me.put(j, Collections.frequency(li, j));
+//				System.out.println("\n Map "+ me.getValue(j));
+			}
+//			s1 = me.entrySet();
+//			Iterator i = s1.iterator();
+//			while(i.hasNext()){
+//			Map.Entry mp= (Map.Entry)i.next();
+	//		for(Map.Entry mp: me.entrySet()){
+	//			System.out.println("\n map is" + mp.getKey());
+	//			System.out.println("\n Value is" + mp.getValue());
+	//		}
+				System.out.println("\n Map values" + me);
+			}
+		}
+	}
+Output
+Integers 1
+Integers 1
+Integers 4
+Integers 3
+Integers 1
+ Map values{1=3, 3=1, 4=1}
+Integers 3
+ Map values{1=3, 3=1, 4=1}
+Integers 4
+ Map values{1=3, 3=1, 4=1}
+
+Sort the age in ascending order - Compare.java
+package guvi.collections;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+
+class school implements Comparable{  
+	int rollno;  
+	String name;  
+	int aage;  
+	
+	school(int rollno,String name,int age){  
+	this.rollno=rollno;  
+	this.name=name;  
+	this.aage=age;  
+	}  	  
+	public int compareTo(Object obj){  
+		school st=(school)obj;  
+	if(aage==st.aage)  
+	return 0;  
+	else if(aage>st.aage)  
+	return 1;  
+	else  
+	return -1;  
+	}  	  
+	}  
+public class Compare {
+	public static void main(String args[]){  		  
+		ArrayList al=new ArrayList();  
+		al.add(new school(101,"Vijay",23));  
+		al.add(new school(106,"Ajay",27));  
+		al.add(new school(105,"Jai",21));  
+		  
+		Collections.sort(al);  
+		Iterator itr=al.iterator();  
+		while(itr.hasNext()){  
+			school st=(school)itr.next();  
+		System.out.println(st.rollno+" "+st.name+" "+st.aage);  
+		}
+	}  
+}
+Output
+105 Jai 21
+101 Vijay 23
+106 Ajay 27
+
+Threads practice – ThreadPrac.java
+package collections;
+
+public class ThreadPrac implements Runnable{
+
+	public void run(){
+	for(int i =1;i<=5;i++){
+		try {
+			Thread.sleep(2000);
+			System.out.println("\n" + Thread.currentThread().getPriority());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("\n Thread value "+ i);
+	}
+}
+	public static void main(String args[]) throws InterruptedException{
+		ThreadPrac tp = new ThreadPrac();
+		Thread t1 = new Thread(tp);
+		Thread t2 = new Thread(tp);
+		Thread t3 = new Thread(tp);
+		t3.setPriority(Thread.MAX_PRIORITY);
+		t1.start();
+		t1.join();
+		t2.start();
+		Thread.yield();
+		t3.start();
+	}
+}
+
+Output
+5
+ Thread value 1
+5
+ Thread value 2
+5
+ Thread value 3
+5
+ Thread value 4
+5
+ Thread value 5
+10
+ Thread value 1
+5
+ Thread value 1
+5
+10
+ Thread value 2
+ Thread value 2
+10
+ Thread value 3
+5
+ Thread value 3
+
+10
+
+ Thread value 4
+
+5
+
+ Thread value 4
+
+5
+
+10
+
+ Thread value 5
+
+ Thread value 5
